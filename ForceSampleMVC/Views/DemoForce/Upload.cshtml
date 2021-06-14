@@ -1,0 +1,17 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ForceSampleMVC.Controllers.Force.OSSController.UploadFile
+@{
+    var test = "";
+}
+<form asp-action="Upload" enctype="multipart/form-data">
+    <div>
+        @*<input type="text" value="bucketKey"/>*@
+        <label type="text" asp-for="bucketKey"/>
+        <input type="text" asp-for="bucketKey"/>
+        <input type="file" name="file"/>
+        <input type="hidden" asp-for="fileToUpload"/>
+        <input type="submit" value="Upload"/>
+    </div>
+</form>

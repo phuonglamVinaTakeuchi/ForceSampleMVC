@@ -1,0 +1,37 @@
+﻿@model Dictionary<ForceSampleMVC.Controllers.Force.OSSController.TreeNode, List<ForceSampleMVC.Controllers.Force.OSSController.TreeNode>>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<ul>
+    @foreach (var tree in Model)
+    {
+        <li>
+            <p>
+                @tree.Key.text
+                <a asp-action="Upload" asp-route-id="@tree.Key.id" class="btn btn-outline-primary">Upload File</a>
+            </p>
+           
+            @if (tree.Value.Count > 0)
+            {
+                <ul>
+                    @foreach (var child in tree.Value)
+                    {
+                        <li>
+                            <p>
+                                @child.text
+                                <a asp-action="DeleteFile" asp-route-bucketId="@tree.Key.id" asp-route-objectName="@child.text">Delete</a>
+                            </p>
+
+
+                        </li>
+                    }
+                </ul>
+            }
+        </li>
+    }
+</ul>
+
+<a asp-action="Create" class="btn btn-outline-primary">Create New</a>

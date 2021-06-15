@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Autodesk.Forge;
 using Autodesk.Forge.Model;
+using ForceSampleMVC.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForceSampleMVC.Controllers.Force
 {
     [ApiController]
-    public class ModelDerivativeController : ControllerBase
+    public class ModelDerivativeController : ControllerBase,IModelDerivative
     {
         /// <summary>
         /// Start the translation job for a give bucketKey/objectName
@@ -39,6 +42,17 @@ namespace ForceSampleMVC.Controllers.Force
             derivative.Configuration.AccessToken = oauth.access_token;
             dynamic jobPosted = await derivative.TranslateAsync(job);
             return jobPosted;
+        }
+        [Route("api/forge/modelderivative/jobs")]
+        public async Task<dynamic> GetLoadObject(string urn)
+        {
+            dynamic oauth = await OAuthController.GetInternalAsync();
+            DerivativesApi derivative = new DerivativesApi();
+            derivative.Configuration.AccessToken = oauth.access_token;
+            
+                dynamic result = derivative.GetManifest(urn);
+                return result;
+            
         }
 
         /// <summary>

@@ -6,25 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\DemoForce\DeleteFile.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autodesk.Forge" Version="1.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\DemoForce\DeleteFile.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\DemoForce\DeleteFile.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\DemoForce\DeleteFile.cshtml" />
   </ItemGroup>
 
 </Project>

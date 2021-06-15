@@ -21,8 +21,9 @@
                     {
                         <li>
                             <p>
-                                @child.text
+                                <a asp-action="ViewIn3D" asp-route-objectId="@child.id">@child.text</a>                 
                                 <a asp-action="DeleteFile" asp-route-bucketId="@tree.Key.id" asp-route-objectName="@child.text">Delete</a>
+                                <a asp-action="TranslateFile" asp-route-bucketId="@tree.Key.id" asp-route-objectName="@child.id">Translate File</a>
                             </p>
 
 

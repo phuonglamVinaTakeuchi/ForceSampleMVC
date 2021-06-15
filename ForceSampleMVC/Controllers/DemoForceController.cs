@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autodesk.Forge.Model;
 using ForceSampleMVC.Controllers.Force;
 using ForceSampleMVC.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static ForceSampleMVC.Controllers.Force.ModelDerivativeController;
 
 namespace ForceSampleMVC.Controllers
 {
     public class DemoForceController : Controller
     {
         private IOss _iOssController;
-        public DemoForceController(IOss oss)
+        private IModelDerivative _modelDerivative;
+        public DemoForceController(IOss oss,IModelDerivative modelderivate)
         {
             _iOssController = oss;
+            _modelDerivative = modelderivate;
         }
         //[Route("")]
         public IActionResult Index()
@@ -58,10 +62,6 @@ namespace ForceSampleMVC.Controllers
             }
             uploadFile.fileToUpload = file;
             var dynamic = await _iOssController.UploadObject(uploadFile);
-            //while (_iOssController.UploadObject(uploadFile).Status != TaskStatus.RanToCompletion)
-            //{
-                
-            //}
             return RedirectToAction("Index");
             
 
@@ -73,7 +73,29 @@ namespace ForceSampleMVC.Controllers
             _iOssController.DeleteFile(objectName,bucketId);
             return RedirectToAction("Index");
         }
+        public IActionResult TranslateFile(string objectName,string bucketId)
+        {
+            var translateObjectModel = new TranslateObjectModel();
+            translateObjectModel.bucketKey = bucketId;
+            translateObjectModel.objectName = objectName;
+            return View(translateObjectModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> TranslateFile(TranslateObjectModel translatfile)
+        {
+            if (translatfile == null)
+            {
+                return View(translatfile);
+            }
 
+            var dynamic = await _modelDerivative.TranslateObject(translatfile);
+            return RedirectToAction("Index");
+        }
+        public object ViewIn3D(string objectId)
+        {
+            var result = _modelDerivative.GetLoadObject(objectId).Result;
+           return result;
+        }
         public class FileData
         {
             public string BucketId { get; set; }

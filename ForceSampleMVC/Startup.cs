@@ -27,6 +27,7 @@ namespace ForceSampleMVC
         {
             services.AddControllersWithViews();
             services.AddSingleton<IOss, OSSController>();
+            services.AddSingleton<IModelDerivative, ModelDerivativeController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
